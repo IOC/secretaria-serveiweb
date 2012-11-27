@@ -11,21 +11,21 @@ $functions = array(
     ),
     'create_user' => array(
         'properties' => array(
-            'username' => 'str',
-            'password' => 'str',
-            'firstname' => 'str',
-            'lastname' => 'str',
-            'email' => 'str',
+            'username' => 'str?',
+            'password' => 'str?',
+            'firstname' => 'str?',
+            'lastname' => 'str?',
+            'email' => 'str?',
         ),
     ),
     'update_user' => array(
         'username' => 'str',
         'properties' => array(
-            'username' => 'str',
-            'password' => 'str',
-            'firstname' => 'str',
-            'lastname' => 'str',
-            'email' => 'str',
+            'username' => 'str?',
+            'password' => 'str?',
+            'firstname' => 'str?',
+            'lastname' => 'str?',
+            'email' => 'str?',
         ),
     ),
     'delete_user' => array(
@@ -57,7 +57,7 @@ $functions = array(
     'create_group' => array(
         'course' => 'str',
         'name' => 'str',
-        'description' => 'str',
+        'description' => 'str?',
     ),
     'delete_group' => array(
         'course' => 'str',
@@ -96,14 +96,14 @@ $functions = array(
             'name' => 'str',
             'summary' => 'str',
             'opendate' => array(
-                'year' => 'str',
-                'month' => 'str',
-                'day' => 'str',
+                'year' => 'str?',
+                'month' => 'str?',
+                'day' => 'str?',
             ),
             'closedate' => array(
-                'year' => 'str',
-                'month' => 'str',
-                'day' => 'str',
+                'year' => 'str?',
+                'month' => 'str?',
+                'day' => 'str?',
             ),
             'template' => array(
                 'course' => 'str',
@@ -183,6 +183,8 @@ function get_data($func) {
     foreach ($functions[$func] as $name => $type) {
         if ($type === 'str') {
             get_data_str($name, $values, $name, true);
+        } else if ($type === 'str?') {
+            get_data_str($name, $values, $name, false);
         } else if ($type === array()) {
             get_data_list($name, $values, $name, true);
         } else if (is_array($type) and !isset($type[0])) {
@@ -198,15 +200,19 @@ function get_data_dict($name, $keys, &$data, $data_key, $required=false) {
     $values = array();
     foreach ($keys as $key => $type) {
         if ($type === 'str') {
-            get_data_str("$name:$key", $values, $key);
+            get_data_str("$name:$key", $values, $key, true);
+        } else if ($type === 'str?') {
+            get_data_str("$name:$key", $values, $key, false);
         } else if ($type === 'int') {
-            get_data_int("$name:$key", $values, $key);
+            get_data_int("$name:$key", $values, $key, true);
+        } else if ($type === 'int?') {
+            get_data_int("$name:$key", $values, $key, false);
         } else if ($type === array()) {            
-            get_data_list("$name:$key", $values, $key);
+            get_data_list("$name:$key", $values, $key, false);
         } else if (is_array($type) and !isset($type[0])) {
             get_data_dict("$name:$key", $type, $values, $key);
         } else if (is_array($type) and is_array($type[0])) {
-            get_data_list_dict("$name:$key", $type[0], $values, $key);
+            get_data_list_dict("$name:$key", $type[0], $values, $key, false);
         }
     }
     if ($values or $required) {
@@ -214,7 +220,7 @@ function get_data_dict($name, $keys, &$data, $data_key, $required=false) {
     }
 }
 
-function get_data_int($name, &$data, $data_key, $required=false) {
+function get_data_int($name, &$data, $data_key, $required) {
     if (!empty($_POST["$name:del"])) {
         // skip
     } else if (isset($_POST[$name])) {
@@ -225,7 +231,7 @@ function get_data_int($name, &$data, $data_key, $required=false) {
     }
 }
 
-function get_data_list($name, &$data, $data_key, $required=false) {
+function get_data_list($name, &$data, $data_key, $required) {
     $values = !empty($_POST[$name]) ? $_POST[$name] : array();
     if (!empty($_POST["$name:del"])) {
         array_splice($values, key($_POST["$name:del"]), 1);
@@ -238,7 +244,7 @@ function get_data_list($name, &$data, $data_key, $required=false) {
     }
 }
 
-function get_data_list_dict($name, $keys, &$data, $data_key, $required=false) {
+function get_data_list_dict($name, $keys, &$data, $data_key, $required) {
     $values = array();
     if (!empty($_POST[$name])) {
         foreach ($_POST[$name] as $index => $value) {
@@ -266,7 +272,7 @@ function get_data_list_dict($name, $keys, &$data, $data_key, $required=false) {
     }
 }
 
-function get_data_str($name, &$data, $data_key, $required=false) {
+function get_data_str($name, &$data, $data_key, $required) {
     if (!empty($_POST["$name:del"])) {
         // skip
     } else if (isset($_POST[$name])) {
@@ -318,14 +324,17 @@ function _print_form($func, $data) {
     global $functions;
     echo '<table>';
     foreach ($functions[$func] as $name => $type) {
+        $value = isset($data[$name]) ? $data[$name] : null;
         if ($type === 'str') {
-            _print_form_str($name, $name, $data[$name], true);
+            _print_form_str($name, $name, $value, true);
+        } else if ($type === 'str?') {
+            _print_form_str($name, $name, $value, false);
         } else if ($type === array()) {
-            _print_form_list($name, $name, $data[$name]);
+            _print_form_list($name, $name, $value);
         } else if (is_array($type) and !isset($type[0])) {
-            _print_form_dict($name, $name, $type, $data[$name]);
+            _print_form_dict($name, $name, $type, $value);
         } else if (is_array($type) and is_array($type[0])) {
-            _print_form_list_dict($name, $name, $type[0], $data[$name]);
+            _print_form_list_dict($name, $name, $type[0], $value);
         }
     }
     echo '</table>';
@@ -339,7 +348,9 @@ function _print_form_dict($label, $name, $keys, $data, $depth=0) {
     foreach ($keys as $key => $type) {
         $id = "$name:$key";
         $value = isset($data[$key]) ? $data[$key] : null;
-        if ($type === 'str' or $type == 'int') {
+        if ($type === 'str' or $type === 'int') {
+            _print_form_str($key, $id, $value, true, $depth+1);
+        } else if ($type === 'str?' or $type === 'int?') {
             _print_form_str($key, $id, $value, false, $depth+1);
         } else if ($type === array()) {
             _print_form_list($key, $id, $value, $depth+1);
