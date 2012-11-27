@@ -1,0 +1,182 @@
+.header {
+    background-color: #444;
+    color: white;
+    padding: 0.5em;
+}
+
+.header h1 {
+    margin: 0;
+    text-align: center;
+}
+
+.content h2 {
+    font-size: 1.5em;
+    margin: 0;
+    padding: 0.4em 0;
+}
+
+.content a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.main {
+    float: left;
+    width: 78%;
+}
+
+td {
+    padding: 0;
+    vertical-align: top;
+}
+
+tr.indent-1 > td:first-child {
+    padding-left: 32px;
+}
+
+tr.indent-2 > td:first-child {
+    padding-left: 64px;
+}
+
+tr.indent-3 > td:first-child {
+    padding-left: 96px;
+}
+
+th {
+    font-weight: normal;
+    text-align: left;
+    padding: 4px;
+}
+
+th label {
+    margin: 0;
+    padding: 0;
+}
+
+tr.indent-1 > th:first-child {
+    padding-left: 36px;
+}
+
+tr.indent-2 > th:first-child {
+    padding-left: 68px;
+}
+
+tr.indent-3 > th:first-child {
+    padding-left: 100px;
+}
+
+label {
+    display: inline-block;
+    padding: 4px 0;
+    margin: 4px 8px 4px 0;
+}
+
+label:after {
+    content: ":";
+}
+
+.main input {
+    border: 1px solid silver;
+    padding: 4px;
+    margin: 3px 4px;
+}
+
+.main select {
+   padding: 2px;
+   margin: 3px 4px;
+}
+
+.main input:focus {
+    outline-color: gray;
+}
+
+.main input[type=submit] {
+    background-color: #eee;
+}
+
+.main input.execute {
+    margin: 1em 0;
+    padding: 8px 16px;
+}
+
+.output {
+    border-top: 1px solid silver;
+}
+
+.output pre {
+    margin: 0;
+    padding: 1em 0;
+    white-space: pre;
+    overflow-x: auto;
+    color: #444;
+}
+
+.output.error {
+    padding-top: 1em;
+    margin-bottom: 1em;
+    color: red;
+    font-weight: bold;
+}
+
+.nav {
+    width: 18%;
+    padding: 1%;
+    float: left;
+    overflow: auto;
+}
+
+.nav select {
+    width: 10em;
+}
+
+.nav ul {
+    margin: 0;
+    padding: 0.4em 0;
+    list-style-type: none;
+    border-bottom: 1px solid silver;
+}
+
+.nav ul:last-of-type {
+    border-bottom: none;
+}
+
+.nav li {
+    padding: 0;
+}
+
+.nav li.current input {
+    font-weight: bold;
+}
+
+.nav li:hover {
+    background-color: #eee;
+}
+
+.nav li input {
+    display: block;
+    border: 0;
+    padding: 0.4em;
+    width: 100%;
+    text-align: left;
+    background: none;
+}
+
+span.format_var {
+    color: #00f;
+}
+
+span.format_func {
+    color: #060;
+}
+
+span.format_str {
+    color: #f00;
+}
+
+span.format_bool {
+    color: #933;
+}
+
+span.format_int {
+    color: #c6c;
+}
