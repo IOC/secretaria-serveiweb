@@ -9,6 +9,9 @@ $functions = array(
     'get_user' => array(
         'username' => 'str',
     ),
+    'get_user_lastaccess' => array(
+        'username' => 'str',
+    ),
     'create_user' => array(
         'properties' => array(
             'username' => 'str?',
@@ -127,6 +130,7 @@ $functions = array(
 $menu = array(
     array(
         'get_user',
+        'get_user_lastaccess',
         'create_user',
         'update_user',
         'delete_user',

@@ -6,6 +6,7 @@ class Moodle {
     private $moodle;
     private static $functions = array(
         'get_user' => array('username'),
+        'get_user_lastaccess' => array('username'),
         'create_user' => array('properties'),
         'update_user' => array('username', 'properties'),
         'delete_user' => array('username'),
@@ -49,7 +50,10 @@ class Moodle {
         switch ($name) {
 
         case 'get_user':
-            return $this->call_1($name, $arguments);
+            $user1 = $this->call_1($name, $arguments);
+            $user2 = $this->call_2($name, $arguments);
+            $user1['lastaccess'] = max($user1['lastaccess'], $user2['lastaccess']);
+            return $user1;
 
         case 'create_user':
         case 'update_user':
@@ -74,6 +78,7 @@ class Moodle {
             }
 
         case 'get_user_enrolments':
+        case 'get_user_lastaccess':
             $result1 = $this->call_1($name, $arguments);
             $result2 = $this->call_2($name, $arguments);
             return array_merge($result1, $result2);
