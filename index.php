@@ -60,7 +60,7 @@ $functions = array(
     'create_group' => array(
         'course' => 'str',
         'name' => 'str',
-        'description' => 'str?',
+        'description' => 'str',
     ),
     'delete_group' => array(
         'course' => 'str',

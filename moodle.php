@@ -90,30 +90,36 @@ class Moodle {
             $inmoodle2 = array_flip($this->call_2('get_courses'));
             $enrolments1 = array();
             $enrolments2 = array();
-            foreach ($arguments[0] as $enrolment) {
+            foreach ($arguments['enrolments'] as $enrolment) {
                 if (isset($inmoodle2[$enrolment['course']])) {
                     $enrolments2[] = $enrolment;
                 } else {
                     $enrolments1[] = $enrolment;
                 }
             }
-            $this->call_1($name, array($enrolments1));
-            $this->call_2($name, array($enrolments2));
+            $this->call_1($name, array('enrolments' => $enrolments1));
+            $this->call_2($name, array('enrolments' => $enrolments2));
             break;
 
         case 'get_user_grades':
             $inmoodle2 = array_flip($this->call_2('get_courses'));
             $courses1 = array();
             $courses2 = array();
-            foreach ($arguments[1] as $course) {
+            foreach ($arguments['courses'] as $course) {
                 if (isset($inmoodle2[$course])) {
                     $courses2[] = $course;
                 } else {
                     $courses1[] = $course;
                 }
             }
-            $result1 = $this->call_1($name, array($arguments[0], $courses1));
-            $result2 = $this->call_2($name, array($arguments[0], $courses2));
+            $result1 = $this->call_1($name, array(
+                'user' => $arguments['user'],
+                'courses' => $courses1,
+            ));
+            $result2 = $this->call_2($name, array(
+                'user' => $arguments['user'],
+                'courses' => $courses2,
+            ));
             return array_merge($result1, $result2);
 
         case 'send_mail':
