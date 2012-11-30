@@ -20,6 +20,7 @@ class Moodle {
         'get_group_members' => array('course', 'name'),
         'add_group_members' => array('course', 'name', 'users'),
         'remove_group_members' => array('course', 'name', 'users'),
+        'get_user_groups' => array('user', 'course'),
         'get_course_grades' => array('course', 'users'),
         'get_user_grades' => array('user', 'courses'),
         'get_survey_templates' => array('course'),
@@ -69,6 +70,7 @@ class Moodle {
         case 'get_group_members':
         case 'add_group_members':
         case 'remove_group_members':
+        case 'get_user_groups':
         case 'get_course_grades':
         case 'get_survey_templates':
             if ($this->has_course_2($arguments['course'])) {

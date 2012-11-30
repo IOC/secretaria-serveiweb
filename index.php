@@ -80,6 +80,10 @@ $functions = array(
         'name' => 'str',
         'users' => array(),
     ),
+    'get_user_groups' => array(
+        'user' => 'str',
+        'course' => 'str',
+    ),
     'get_course_grades' => array(
         'course' => 'str',
         'users' => array()
@@ -148,6 +152,7 @@ $menu = array(
         'get_group_members',
         'add_group_members',
         'remove_group_members',
+        'get_user_groups',
     ),
     array(
         'get_course_grades',
