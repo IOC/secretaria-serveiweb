@@ -10,7 +10,7 @@ $functions = array(
         'username' => 'str',
     ),
     'get_user_lastaccess' => array(
-        'username' => 'str',
+        'users' => array(),
     ),
     'create_user' => array(
         'properties' => array(
@@ -134,10 +134,10 @@ $functions = array(
 $menu = array(
     array(
         'get_user',
-        'get_user_lastaccess',
         'create_user',
         'update_user',
         'delete_user',
+        'get_user_lastaccess',
     ),
     array(
         'get_course_enrolments',

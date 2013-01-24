@@ -6,7 +6,7 @@ class Moodle {
     private $moodle;
     private static $functions = array(
         'get_user' => array('username'),
-        'get_user_lastaccess' => array('username'),
+        'get_user_lastaccess' => array('users'),
         'create_user' => array('properties'),
         'update_user' => array('username', 'properties'),
         'delete_user' => array('username'),
@@ -81,7 +81,13 @@ class Moodle {
 
         case 'get_user_enrolments':
         case 'get_user_lastaccess':
-            $result1 = $this->call_1($name, $arguments);
+            $inmoodle2 = array_flip($this->call_2('get_courses'));
+            $result1 = array();
+            foreach ($this->call_1($name, $arguments) as $access) {
+                if (!isset($inmoodle[$access['course']])) {
+                    $result1[] = $access;
+                }
+            }
             $result2 = $this->call_2($name, $arguments);
             return array_merge($result1, $result2);
 
