@@ -26,6 +26,7 @@ class Moodle {
         'get_survey_templates' => array('course'),
         'create_survey' => array('properties'),
         'send_mail' => array('message'),
+        'get_courses' => array(),
     );
 
     function __construct($config, $moodle=false) {
@@ -138,6 +139,11 @@ class Moodle {
                 return $this->call_1($name, $arguments);
             }
             break;
+
+        case 'get_courses':
+            $result1 = $this->call_1($name, $arguments);
+            $result2 = $this->call_2($name, $arguments);
+            return array_unique(array_merge($result1, $result2));
         }
     }
 

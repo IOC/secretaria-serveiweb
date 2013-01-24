@@ -129,6 +129,7 @@ $functions = array(
             'bcc' => array(),
         ),
     ),
+    'get_courses' => array(),
 );
 
 $menu = array(
@@ -164,6 +165,7 @@ $menu = array(
     ),
     array(
         'send_mail',
+        'get_courses',
     ),
 );
 
