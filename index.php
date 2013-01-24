@@ -92,7 +92,7 @@ $functions = array(
         'user' => 'str',
         'courses' => array(),
     ),
-    'get_survey_templates' => array(
+    'get_surveys' => array(
         'course' => 'str',
     ),
     'create_survey' => array(
@@ -160,7 +160,7 @@ $menu = array(
         'get_user_grades',
     ),
     array(
-        'get_survey_templates',
+        'get_surveys',
         'create_survey',
     ),
     array(
