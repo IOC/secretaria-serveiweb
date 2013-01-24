@@ -151,7 +151,7 @@ class Moodle {
         $url = "https://{$this->config->server1}/local/secretaria/webservice.php";
         $data = array('token' => $this->config->token1,
                       'func' => $func, 'params' => $params);
-        $response = self::curl($url, 'data=' . json_encode($data));
+        $response = self::curl($url, 'data=' . urlencode(json_encode($data)));
         $response = json_decode($response, true);
         if ($response['error']) {
             throw new MoodleException($response['error']);
