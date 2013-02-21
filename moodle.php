@@ -58,6 +58,18 @@ class Moodle {
             return $user1;
 
         case 'create_user':
+            $this->call_1('create_user', $arguments);
+            try {
+                $this->call_2('create_user', $arguments);
+            } catch (MoodleException $e) {
+                if (!empty($arguments['properties']['username'])) {
+                    $username = $arguments['properties']['username'];
+                    $this->call_1('delete_user', array('username' => $username));
+                }
+                throw $e;
+            }
+            break;
+
         case 'update_user':
         case 'delete_user':
             $this->call_1($name, $arguments);
