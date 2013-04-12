@@ -92,6 +92,13 @@ $functions = array(
         'user' => 'str',
         'courses' => array(),
     ),
+    'get_assignments' => array(
+        'course' => 'str',
+    ),
+    'get_assignment_submissions' => array(
+        'course' => 'str',
+        'idnumber' => 'str',
+    ),
     'get_surveys' => array(
         'course' => 'str',
     ),
@@ -158,6 +165,10 @@ $menu = array(
     array(
         'get_course_grades',
         'get_user_grades',
+    ),
+    array(
+        'get_assignments',
+        'get_assignment_submissions',
     ),
     array(
         'get_surveys',
