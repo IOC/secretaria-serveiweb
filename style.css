@@ -1,11 +1,18 @@
-.header {
+html {
+    overflow: hidden;
+}
+
+#header {
     background-color: #444;
     color: white;
     padding: 0.5em;
+    height: 1.5em;
 }
 
-.header h1 {
+#header h1 {
     margin: 0;
+    font-size: 1.5em;
+    line-height: 1;
     text-align: center;
 }
 
@@ -20,9 +27,14 @@
     color: inherit;
 }
 
-.main {
-    float: left;
-    width: 76%;
+#main {
+    position: absolute;
+    top: 2.5em;
+    bottom: 0;
+    left: 20em;
+    right: 0;
+    overflow: auto;
+    padding: 0 1em;
 }
 
 td {
@@ -75,26 +87,26 @@ label:after {
     content: ":";
 }
 
-.main input {
+#main input {
     border: 1px solid silver;
     padding: 4px;
     margin: 3px 4px;
 }
 
-.main select {
+#main select {
    padding: 2px;
    margin: 3px 4px;
 }
 
-.main input:focus {
+#main input:focus {
     outline-color: gray;
 }
 
-.main input[type=submit] {
+#main input[type=submit] {
     background-color: #eee;
 }
 
-.main input.execute {
+#main input.execute {
     margin: 1em 0;
     padding: 8px 16px;
 }
@@ -107,7 +119,6 @@ label:after {
     margin: 0;
     padding: 1em 0;
     white-space: pre;
-    overflow-x: auto;
     color: #444;
 }
 
@@ -118,41 +129,44 @@ label:after {
     font-weight: bold;
 }
 
-.nav {
-    width: 22%;
-    padding: 1%;
-    float: left;
+#nav {
+    position: absolute;
+    top: 2.5em;
+    bottom: 0;
+    left: 0;
+    width: 19em;
+    padding: 0.5em;
     overflow: auto;
 }
 
-.nav select {
+#nav select {
     width: 10em;
 }
 
-.nav ul {
+#nav ul {
     margin: 0;
     padding: 0.4em 0;
     list-style-type: none;
     border-bottom: 1px solid silver;
 }
 
-.nav ul:last-of-type {
+#nav ul:last-of-type {
     border-bottom: none;
 }
 
-.nav li {
+#nav li {
     padding: 0;
 }
 
-.nav li.current input {
+#nav li.current input {
     font-weight: bold;
 }
 
-.nav li:hover {
+#nav li:hover {
     background-color: #eee;
 }
 
-.nav li input {
+#nav li input {
     display: block;
     border: 0;
     padding: 0.4em;

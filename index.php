@@ -311,18 +311,24 @@ function _print_header() {
         .'<link rel="stylesheet" href="normalize.css" />'
         .'<link rel="stylesheet" href="style.css" />'
         .'</head><body>'
-        .'<div class="header"><h1>Servei web per a secretaria</h1>'
-        .'</div><div class="content">'
+        .'<div id="header"><h1>Servei web per a secretaria</h1></div>'
+        .'<div class="content">'
         .'<form method="post">';
 }
 
-function _print_footer() {
-    echo '</form></div></body></html>';
+
+function _print_footer($func) {
+    echo '</form></div><script>'
+        ."var nav = document.getElementById('nav');"
+        ."var li = document.getElementById('$func');"
+        ."if (li.offsetTop + li.offsetHeight > nav.offsetHeight)"
+        ." nav.scrollTop = li.offsetTop;"
+        .'</script></body></html>';
 }
 
 function _print_nav($func, $moodle) {
     global $menu;
-    echo '<div class="nav">';
+    echo '<div id="nav">';
     echo '<input type="submit" name="execute" style="display: none" value="1"/>';
     echo '<input type="hidden" name="func" value="'.$func.'"/>';
     echo '<select name="moodle">'
@@ -333,7 +339,7 @@ function _print_nav($func, $moodle) {
     foreach ($menu as $l) {
         echo '<ul>';
         foreach ($l as $f) {
-            echo '<li'.($func == $f ? ' class="current"' : '').'>'
+            echo '<li id="'.$f.'"'.($func == $f ? ' class="current"' : '').'>'
                 .'<input type="submit" name="func_'.$f.'" value="'.$f.'"/></li>';
         }
         echo '</ul>';
@@ -523,7 +529,7 @@ $data = get_data($func);
 $moodle = get_moodle();
 _print_header();
 _print_nav($func, $moodle);
-echo '<div class="main"><h2>'.$func.'</h2>';
+echo '<div id="main"><h2>'.$func.'</h2>';
 _print_form($func, $data);
 if (!empty($_POST['execute'])) {
     $moodle = new Moodle($config, $moodle);
@@ -535,4 +541,4 @@ if (!empty($_POST['execute'])) {
     _print_output($func, $data, $result);
 }
 echo '</div>';
-_print_footer();
+_print_footer($func);
