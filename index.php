@@ -34,6 +34,26 @@ $functions = array(
     'delete_user' => array(
         'username' => 'str',
     ),
+    'has_course' => array(
+        'course' => 'str',
+    ),
+    'get_course' => array(
+        'course' => 'str',
+    ),
+    'update_course' => array(
+        'course' => 'str',
+        'properties' => array(
+            'shortname' => 'str?',
+            'fullname' => 'str?',
+            'visible' => 'bool?',
+            'startdate' => array(
+                'year' => 'str?',
+                'month' => 'str?',
+                'day' => 'str?',
+            ),
+        ),
+    ),
+    'get_courses' => array(),
     'get_course_enrolments' => array(
         'course' => 'str',
     ),
@@ -136,7 +156,6 @@ $functions = array(
             'bcc' => array(),
         ),
     ),
-    'get_courses' => array(),
 );
 
 $menu = array(
@@ -146,6 +165,12 @@ $menu = array(
         'update_user',
         'delete_user',
         'get_user_lastaccess',
+    ),
+    array(
+        'has_course',
+        'get_course',
+        'update_course',
+        'get_courses',
     ),
     array(
         'get_course_enrolments',
@@ -176,7 +201,6 @@ $menu = array(
     ),
     array(
         'send_mail',
-        'get_courses',
     ),
 );
 
@@ -218,6 +242,14 @@ function get_data($func) {
     return $values;
 }
 
+function get_data_bool($name, &$data, $data_key, $required) {
+    if (isset($_POST[$name]) and $_POST[$name] !== '') {
+        $data[$data_key] = (bool) $_POST[$name];
+    } else if ($required) {
+        $data[$data_key] = null;
+    }
+}
+
 function get_data_dict($name, $keys, &$data, $data_key, $required=false) {
     $values = array();
     foreach ($keys as $key => $type) {
@@ -229,6 +261,10 @@ function get_data_dict($name, $keys, &$data, $data_key, $required=false) {
             get_data_int("$name:$key", $values, $key, true);
         } else if ($type === 'int?') {
             get_data_int("$name:$key", $values, $key, false);
+        } else if ($type === 'bool') {
+            get_data_bool("$name:$key", $values, $key, true);
+        } else if ($type === 'bool?') {
+            get_data_bool("$name:$key", $values, $key, false);
         } else if ($type === array()) {            
             get_data_list("$name:$key", $values, $key, false);
         } else if (is_array($type) and !isset($type[0])) {
@@ -369,6 +405,19 @@ function _print_form($func, $data) {
     echo '<div><input type="submit" class="execute" name="execute" value="Executa"/></div>';
 }
 
+function _print_form_bool($label, $name, $data, $required, $depth=0) {
+    echo '<tr class="indent-'.$depth.'">';
+    $for = ($required or $data !== null) ? ' for="'.$name.'"' : '';
+    echo '<td><label'.$for.'>'.$label.'</label></td>';
+    echo '<td><select id="'.$name.'" name="'.$name.'" />';
+    if (!$required) {
+        echo '<option value=""'.($data === '' ?  ' selected="selected"' : '').'></option>';
+    }
+    echo '<option value="1"'.($data === true ?  ' selected="selected"' : '').'>true</option>';
+    echo '<option value="0"'.($data === false ?  ' selected="selected"' : '').'>false</option>';
+    echo '</select></td>';
+}
+
 function _print_form_dict($label, $name, $keys, $data, $depth=0) {
     echo '<tr class="indent-'.$depth.'">';
     echo '<td><label>'.$label.'</label></td><td></td>';
@@ -380,6 +429,10 @@ function _print_form_dict($label, $name, $keys, $data, $depth=0) {
             _print_form_str($key, $id, $value, true, $depth+1);
         } else if ($type === 'str?' or $type === 'int?') {
             _print_form_str($key, $id, $value, false, $depth+1);
+        } else if ($type === 'bool') {
+            _print_form_bool($key, $id, $value, true, $depth+1);
+        } else if ($type === 'bool?') {
+            _print_form_bool($key, $id, $value, false, $depth+1);
         } else if ($type === array()) {
             _print_form_list($key, $id, $value, $depth+1);
         } else if (is_array($type) and !isset($type[0])) {
@@ -441,6 +494,7 @@ function _print_form_list_dict($label, $name, $keys, $data, $depth=0) {
                     echo '<option value=""'.($option === '' ?  ' selected="selected"' : '').'></option>';
                     echo '<option value="1"'.($option === true ?  ' selected="selected"' : '').'>true</option>';
                     echo '<option value="0"'.($option === false ?  ' selected="selected"' : '').'>false</option>';
+                    echo '</select>';
                 } elseif ($type == 'str') {
                     echo '<input type="text" name="'.$name.'['.$index.']['.$key.']" value="'.$value[$key].'" />';
                 }

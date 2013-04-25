@@ -10,6 +10,10 @@ class Moodle {
         'create_user' => array('properties'),
         'update_user' => array('username', 'properties'),
         'delete_user' => array('username'),
+        'has_course' => array('course'),
+        'get_course' => array('course'),
+        'update_course' => array('course', 'properties'),
+        'get_courses' => array(),
         'get_course_enrolments' => array('course'),
         'get_user_enrolments' => array('user'),
         'enrol_users' => array('enrolments'),
@@ -28,7 +32,6 @@ class Moodle {
         'get_surveys' => array('course'),
         'create_survey' => array('properties'),
         'send_mail' => array('message'),
-        'get_courses' => array(),
     );
 
     function __construct($config, $moodle=false) {
@@ -78,6 +81,11 @@ class Moodle {
             $this->call_2($name, $arguments);
             break;
 
+        case 'has_course':
+            return $this->call_2($name, $arguments) or $this->call_1($name, $arguments);
+
+        case 'get_course':
+        case 'update_course':
         case 'get_course_enrolments':
         case 'get_groups':
         case 'create_group':
