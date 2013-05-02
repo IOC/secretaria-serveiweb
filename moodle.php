@@ -59,6 +59,9 @@ class Moodle {
         case 'get_user':
             $user1 = $this->call_1($name, $arguments);
             $user2 = $this->call_2($name, $arguments);
+            if ($user2['picture']) {
+                $user1['picture'] = $user2['picture'];
+            }
             $user1['lastaccess'] = max($user1['lastaccess'], $user2['lastaccess']);
             return $user1;
 
