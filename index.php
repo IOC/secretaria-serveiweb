@@ -159,6 +159,11 @@ $functions = array(
             'bcc' => array(),
         ),
     ),
+    'get_mail_stats' => array(
+        'user' => 'str',
+        'starttime' => 'str',
+        'endtime' => 'str',
+    ),
 );
 
 $menu = array(
@@ -207,6 +212,7 @@ $menu = array(
     ),
     array(
         'send_mail',
+        'get_mail_stats',
     ),
 );
 

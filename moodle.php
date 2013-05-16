@@ -33,6 +33,7 @@ class Moodle {
         'get_surveys' => array('course'),
         'create_survey' => array('properties'),
         'send_mail' => array('message'),
+        'get_mail_stats' => array('user', 'starttime', 'endtime'),
     );
 
     function __construct($config, $moodle=false) {
@@ -111,11 +112,12 @@ class Moodle {
 
         case 'get_user_enrolments':
         case 'get_user_lastaccess':
+        case 'get_mail_stats':
             $inmoodle2 = array_flip($this->call_2('get_courses'));
             $result1 = array();
-            foreach ($this->call_1($name, $arguments) as $access) {
-                if (!isset($inmoodle[$access['course']])) {
-                    $result1[] = $access;
+            foreach ($this->call_1($name, $arguments) as $item) {
+                if (!isset($inmoodle2[$item['course']])) {
+                    $result1[] = $item;
                 }
             }
             $result2 = $this->call_2($name, $arguments);
