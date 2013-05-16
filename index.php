@@ -119,6 +119,9 @@ $functions = array(
         'course' => 'str',
         'idnumber' => 'str',
     ),
+    'get_forum_stats' => array(
+        'course' => 'str',
+    ),
     'get_surveys' => array(
         'course' => 'str',
     ),
@@ -194,6 +197,9 @@ $menu = array(
     array(
         'get_assignments',
         'get_assignment_submissions',
+    ),
+    array(
+          'get_forum_stats',
     ),
     array(
         'get_surveys',
