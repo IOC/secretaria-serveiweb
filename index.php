@@ -31,6 +31,7 @@ $functions = array(
             'email' => 'str?',
         ),
     ),
+    'get_users' => array(),
     'delete_user' => array(
         'username' => 'str',
     ),
@@ -173,6 +174,7 @@ $menu = array(
         'update_user',
         'delete_user',
         'get_user_lastaccess',
+        'get_users',
     ),
     array(
         'has_course',

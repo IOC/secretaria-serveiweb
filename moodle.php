@@ -10,6 +10,7 @@ class Moodle {
         'create_user' => array('properties'),
         'update_user' => array('username', 'properties'),
         'delete_user' => array('username'),
+        'get_users' => array(),
         'has_course' => array('course'),
         'get_course' => array('course'),
         'update_course' => array('course', 'properties'),
@@ -171,6 +172,7 @@ class Moodle {
             }
             break;
 
+        case 'get_users':
         case 'get_courses':
             $result1 = $this->call_1($name, $arguments);
             $result2 = $this->call_2($name, $arguments);
