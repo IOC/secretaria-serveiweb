@@ -165,6 +165,7 @@ $functions = array(
         'starttime' => 'str',
         'endtime' => 'str',
     ),
+    'sync_users' => array(),
 );
 
 $menu = array(
@@ -215,6 +216,9 @@ $menu = array(
     array(
         'send_mail',
         'get_mail_stats',
+    ),
+    array(
+        'sync_users',
     ),
 );
 

@@ -180,6 +180,49 @@ class Moodle {
         }
     }
 
+    function sync_users() {
+        if ($this->moodle) {
+            return false;
+        }
+
+        $users1 = $this->call_1('get_users');
+        $users2 = $this->call_2('get_users');
+
+        $result = array(
+            'created' => array(),
+            'deleted' => array(),
+            'errors' => array(),
+        );
+
+        foreach (array_diff($users2, $users1) as $username) {
+            try {
+                $this->call_2('delete_user', array('username' => $username));
+                $result['deleted'][] = $username;
+            } catch (MoodleException $e) {
+                $result['errors'][] = $username;
+            }
+        }
+
+        foreach (array_diff($users1, $users2) as $username) {
+            try {
+                $user = $this->call_1('get_user', array('username' => $username));
+                $this->call_2('create_user', array(
+                    'properties' => array(
+                        'username' => $user['username'],
+                        'firstname' => $user['firstname'],
+                        'lastname' => $user['lastname'],
+                        'email' => $user['email'],
+                    ),
+                ));
+                $result['created'][] = $username;
+            } catch (MoodleException $e) {
+                $result['errors'][] = $username;
+            }
+        }
+
+        return $result;
+    }
+
     private function call_1($func, $params=array()) {
         $url = "https://{$this->config->server1}/local/secretaria/webservice.php";
         $data = array('token' => $this->config->token1,
