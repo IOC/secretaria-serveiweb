@@ -123,6 +123,10 @@ $functions = array(
     'get_forum_stats' => array(
         'course' => 'str',
     ),
+    'get_forum_user_stats' => array(
+        'course' => 'str',
+        'users' => array(),
+    ),
     'get_surveys' => array(
         'course' => 'str',
     ),
@@ -208,6 +212,7 @@ $menu = array(
     ),
     array(
           'get_forum_stats',
+          'get_forum_user_stats',
     ),
     array(
         'get_surveys',
