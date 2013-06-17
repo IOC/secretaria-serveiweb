@@ -213,7 +213,7 @@ class Moodle {
                         'username' => $user['username'],
                         'firstname' => $user['firstname'],
                         'lastname' => $user['lastname'],
-                        'email' => $user['email'],
+                        'email' => self::validate_email($user['email']) ? $user['email'] : '',
                     ),
                 ));
                 $result['created'][] = $username;
@@ -283,6 +283,15 @@ class Moodle {
 
     private function has_course_2($course) {
         return $this->call_2('has_course', array('course' => $course));
+    }
+
+    private static function validate_email($address) {
+        return preg_match('#^[-!\#$%&\'*+\\/0-9=?A-Z^_`a-z{|}~]+'.
+                          '(\.[-!\#$%&\'*+\\/0-9=?A-Z^_`a-z{|}~]+)*'.
+                          '@'.
+                           '[-!\#$%&\'*+\\/0-9=?A-Z^_`a-z{|}~]+\.'.
+                          '[-!\#$%&\'*+\\./0-9=?A-Z^_`a-z{|}~]+$#',
+                          $address);
     }
 }
 
