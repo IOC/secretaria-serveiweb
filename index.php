@@ -591,6 +591,8 @@ function _print_call($name, $params, $depth, $forcelist=false) {
 
 function _print_param($param, $depth=0) {
     if (is_string($param)) {
+        $param = str_replace('\\', '\\\\', $param);
+        $param = str_replace('\'', '\\\'', $param);
         echo '<span class="format_str">\''.$param.'\'</span>';
     } else if (is_int($param)) {        
         echo '<span class="format_int">'.$param.'</span>';
@@ -599,6 +601,17 @@ function _print_param($param, $depth=0) {
     } else if (is_array($param)) {
         _print_call('array', $param, $depth);
     }
+}
+
+function stripslashes_deep($value) {
+    return is_array($value) ? array_map('stripslashes_deep', $value) : stripslashes($value);
+}
+
+if (in_array(strtolower(ini_get('magic_quotes_gpc')), array('1', 'on'))) {
+    $_POST = array_map('stripslashes_deep', $_POST);
+    $_GET = array_map('stripslashes_deep', $_GET);
+    $_COOKIE = array_map('stripslashes_deep', $_COOKIE);
+    $_REQUEST = array_map('stripslashes_deep', $_REQUEST);
 }
 
 $func = get_func();
