@@ -48,7 +48,7 @@ class Moodle {
             throw new MoodleException('Unknown function');
         } elseif (count($arguments) != count(self::$functions[$name])) {
             throw new MoodleException('Invalid parameters');
-        } else {
+        } elseif (!empty(self::$functions[$name])) {
             $arguments = array_combine(self::$functions[$name], $arguments);
         }
 
