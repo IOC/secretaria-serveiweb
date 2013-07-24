@@ -130,6 +130,9 @@ $functions = array(
     'get_surveys' => array(
         'course' => 'str',
     ),
+    'get_surveys_data' => array(
+        'course' => 'str',
+    ),
     'create_survey' => array(
         'properties' => array(
             'course' => 'str',
@@ -216,6 +219,7 @@ $menu = array(
     ),
     array(
         'get_surveys',
+        'get_surveys_data',
         'create_survey',
     ),
     array(
