@@ -156,6 +156,14 @@ $functions = array(
             ),
         ),
     ),
+    'update_survey' => array(
+        'course' => 'str',
+        'idnumber' => 'str',
+        'properties' => array(
+            'idnumber' => 'str?',
+            'name' => 'str?',
+        ),
+    ),
     'send_mail' => array(
         'message' => array(
             'sender' => 'str',
@@ -221,6 +229,7 @@ $menu = array(
         'get_surveys',
         'get_surveys_data',
         'create_survey',
+        'update_survey',
     ),
     array(
         'send_mail',
@@ -244,7 +253,7 @@ function get_func() {
 function get_moodle() {
     if (isset($_POST['moodle'])) {
         if ($_POST['moodle'] == '1') return 1;
-        if ($_POST['moodle'] == '2') return 2;        
+        if ($_POST['moodle'] == '2') return 2;
         return 0;
     }
     return 1;

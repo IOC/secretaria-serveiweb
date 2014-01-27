@@ -35,6 +35,7 @@ class Moodle {
         'get_surveys' => array('course'),
         'get_surveys_data' => array('course'),
         'create_survey' => array('properties'),
+        'update_survey' => array('course', 'idnumber', 'properties'),
         'send_mail' => array('message'),
         'get_mail_stats' => array('user', 'starttime', 'endtime'),
     );
@@ -109,6 +110,7 @@ class Moodle {
         case 'get_forum_user_stats':
         case 'get_surveys':
         case 'get_surveys_data':
+        case 'update_survey':
             if ($this->has_course_2($arguments['course'])) {
                 return $this->call_2($name, $arguments);
             } else {
