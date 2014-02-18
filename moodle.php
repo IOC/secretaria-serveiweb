@@ -200,19 +200,19 @@ class Moodle {
             'errors' => array(),
         );
 
-        foreach (array_diff($users2, $users1) as $username) {
+        foreach (array_diff($users1, $users2) as $username) {
             try {
-                $this->call_2('delete_user', array('username' => $username));
+                $this->call_1('delete_user', array('username' => $username));
                 $result['deleted'][] = $username;
             } catch (MoodleException $e) {
                 $result['errors'][] = $username;
             }
         }
 
-        foreach (array_diff($users1, $users2) as $username) {
+        foreach (array_diff($users2, $users1) as $username) {
             try {
-                $user = $this->call_1('get_user', array('username' => $username));
-                $this->call_2('create_user', array(
+                $user = $this->call_2('get_user', array('username' => $username));
+                $this->call_1('create_user', array(
                     'properties' => array(
                         'username' => $user['username'],
                         'firstname' => $user['firstname'],
