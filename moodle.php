@@ -38,6 +38,7 @@ class Moodle {
         'update_survey' => array('course', 'idnumber', 'properties'),
         'send_mail' => array('message'),
         'get_mail_stats' => array('user', 'starttime', 'endtime'),
+        'calc_formula' => array('formula', 'variables', 'values'),
     );
 
     function __construct($config, $moodle=false) {

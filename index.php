@@ -180,6 +180,11 @@ $functions = array(
         'starttime' => 'str',
         'endtime' => 'str',
     ),
+    'calc_formula' => array(
+        'formula' => 'str',
+        'variables' => array(),
+        'values' => array(),
+    ),
     'sync_users' => array(),
 );
 
@@ -234,6 +239,9 @@ $menu = array(
     array(
         'send_mail',
         'get_mail_stats',
+    ),
+    array(
+        'calc_formula',
     ),
     array(
         'sync_users',
@@ -301,7 +309,7 @@ function get_data_dict($name, $keys, &$data, $data_key, $required=false) {
             get_data_bool("$name:$key", $values, $key, true);
         } else if ($type === 'bool?') {
             get_data_bool("$name:$key", $values, $key, false);
-        } else if ($type === array()) {            
+        } else if ($type === array()) {
             get_data_list("$name:$key", $values, $key, false);
         } else if (is_array($type) and !isset($type[0])) {
             get_data_dict("$name:$key", $type, $values, $key);
@@ -346,7 +354,7 @@ function get_data_list_dict($name, $keys, &$data, $data_key, $required) {
                 if ($type == 'bool' and isset($value[$key]) and $value[$key] !== '') {
                     $values[$index][$key] = (bool) $value[$key];
                 } else if ($type == 'str') {
-                    $values[$index][$key] = !empty($value[$key]) ? $value[$key] : '';                    
+                    $values[$index][$key] = !empty($value[$key]) ? $value[$key] : '';
                 }
             }
         }
