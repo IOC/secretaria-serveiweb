@@ -186,6 +186,9 @@ $functions = array(
         'values' => array(),
     ),
     'sync_users' => array(),
+    'get_course_url' => array(
+        'course' => 'str',
+    ),
 );
 
 $menu = array(
@@ -202,6 +205,7 @@ $menu = array(
         'get_course',
         'update_course',
         'get_courses',
+        'get_course_url',
     ),
     array(
         'get_course_enrolments',
@@ -570,7 +574,7 @@ function _print_call($name, $params, $depth, $forcelist=false) {
     $n_arrays = 0;
     $last_array = false;
     $is_list = true;
-    foreach ($params as $key => $value) {        
+    foreach ($params as $key => $value) {
         if (is_numeric($key) or $forcelist) $key = null;
         $fields[] = array($key, $value);
         if ($last_array = is_array($value)) $n_arrays++;
@@ -615,7 +619,7 @@ function _print_param($param, $depth=0) {
         $param = str_replace('\\', '\\\\', $param);
         $param = str_replace('\'', '\\\'', $param);
         echo '<span class="format_str">\''.$param.'\'</span>';
-    } else if (is_int($param)) {        
+    } else if (is_int($param)) {
         echo '<span class="format_int">'.$param.'</span>';
     } else if (is_bool($param)) {
         echo '<span class="format_bool">'.($param ? 'true' : 'false').'</span>';

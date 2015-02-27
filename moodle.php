@@ -39,6 +39,7 @@ class Moodle {
         'send_mail' => array('message'),
         'get_mail_stats' => array('user', 'starttime', 'endtime'),
         'calc_formula' => array('formula', 'variables', 'values'),
+        'get_course_url' => array('course'),
     );
 
     function __construct($config, $moodle=false) {
@@ -112,6 +113,7 @@ class Moodle {
         case 'get_surveys':
         case 'get_surveys_data':
         case 'update_survey':
+        case 'get_course_url':
             if ($this->has_course_2($arguments['course'])) {
                 return $this->call_2($name, $arguments);
             } else {
