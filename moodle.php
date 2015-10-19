@@ -40,6 +40,7 @@ class Moodle {
         'get_mail_stats' => array('user', 'starttime', 'endtime'),
         'calc_formula' => array('formula', 'variables', 'values'),
         'get_course_url' => array('course'),
+        'reset_password' => array('username'),
     );
 
     function __construct($config, $moodle=false) {
@@ -123,6 +124,7 @@ class Moodle {
         case 'get_user_enrolments':
         case 'get_user_lastaccess':
         case 'get_mail_stats':
+        case 'reset_password':
             $inmoodle2 = array_flip($this->call_2('get_courses'));
             $result1 = array();
             foreach ($this->call_1($name, $arguments) as $item) {

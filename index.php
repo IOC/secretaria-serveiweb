@@ -189,6 +189,9 @@ $functions = array(
     'get_course_url' => array(
         'course' => 'str',
     ),
+    'reset_password' => array(
+        'username' => 'str',
+    ),
 );
 
 $menu = array(
@@ -199,6 +202,7 @@ $menu = array(
         'delete_user',
         'get_user_lastaccess',
         'get_users',
+        'reset_password',
     ),
     array(
         'has_course',
