@@ -2,8 +2,6 @@
 
 require_once 'moodle.php';
 require_once 'config.php';
-//require_once '../moodle/config.php';
-//require_once '../moodle/local/secretaria/lib.php';
 
 $functions = array(
     'get_user' => array(
@@ -185,7 +183,6 @@ $functions = array(
         'variables' => array(),
         'values' => array(),
     ),
-    'sync_users' => array(),
     'get_course_url' => array(
         'course' => 'str',
     ),
@@ -251,9 +248,6 @@ $menu = array(
     array(
         'calc_formula',
     ),
-    array(
-        'sync_users',
-    ),
 );
 
 function get_func() {
@@ -264,15 +258,6 @@ function get_func() {
         }
     }
     return isset($_POST['func']) ? $_POST['func'] : 'get_user';
-}
-
-function get_moodle() {
-    if (isset($_POST['moodle'])) {
-        if ($_POST['moodle'] == '1') return 1;
-        if ($_POST['moodle'] == '2') return 2;
-        return 0;
-    }
-    return 2;
 }
 
 function get_data($func) {
@@ -414,16 +399,11 @@ function _print_footer($func) {
         .'</script></body></html>';
 }
 
-function _print_nav($func, $moodle) {
+function _print_nav($func) {
     global $menu;
     echo '<div id="nav">';
     echo '<input type="submit" name="execute" style="display: none" value="1"/>';
     echo '<input type="hidden" name="func" value="'.$func.'"/>';
-    echo '<select name="moodle">'
-        .'<option value="1"' . ($moodle == 1 ? ' selected="selected"' : '') . '>Moodle 1.9</option>'
-        .'<option value="2"' . ($moodle == 2 ? ' selected="selected"' : '') . '>Moodle 2.x</option>'
-        .'<option value="0"' . ($moodle == 0 ? ' selected="selected"' : '') . '>Moodle 1.9 / 2.x</option>'
-        .'</select>';
     foreach ($menu as $l) {
         echo '<ul>';
         foreach ($l as $f) {
@@ -645,13 +625,12 @@ if (in_array(strtolower(ini_get('magic_quotes_gpc')), array('1', 'on'))) {
 
 $func = get_func();
 $data = get_data($func);
-$moodle = get_moodle();
 _print_header();
-_print_nav($func, $moodle);
+_print_nav($func);
 echo '<div id="main"><h2>'.$func.'</h2>';
 _print_form($func, $data);
 if (!empty($_POST['execute'])) {
-    $moodle = new Moodle($config, $moodle);
+    $moodle = new Moodle($config);
     try {
         $result = call_user_func_array(array($moodle, $func), $data);
     } catch (MoodleException $e) {
