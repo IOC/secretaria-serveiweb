@@ -29,7 +29,9 @@ $functions = array(
             'email' => 'str?',
         ),
     ),
-    'get_users' => array(),
+    'get_users' => array(
+         'usernames' => array(),
+    ),
     'delete_user' => array(
         'username' => 'str',
     ),

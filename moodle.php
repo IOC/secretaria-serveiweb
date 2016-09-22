@@ -9,7 +9,7 @@ class Moodle {
         'create_user' => array('properties'),
         'update_user' => array('username', 'properties'),
         'delete_user' => array('username'),
-        'get_users' => array(),
+        'get_users' => array('usernames'),
         'has_course' => array('course'),
         'get_course' => array('course'),
         'update_course' => array('course', 'properties'),
