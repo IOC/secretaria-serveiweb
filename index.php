@@ -164,6 +164,9 @@ $functions = array(
             'name' => 'str?',
         ),
     ),
+    'get_workshops' => array(
+        'course' => 'str',
+    ),
     'send_mail' => array(
         'message' => array(
             'sender' => 'str',
@@ -242,6 +245,9 @@ $menu = array(
         'get_surveys_data',
         'create_survey',
         'update_survey',
+    ),
+    array(
+        'get_workshops',
     ),
     array(
         'send_mail',

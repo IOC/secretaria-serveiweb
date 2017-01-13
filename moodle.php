@@ -35,6 +35,7 @@ class Moodle {
         'get_surveys_data' => array('course'),
         'create_survey' => array('properties'),
         'update_survey' => array('course', 'idnumber', 'properties'),
+        'get_workshops' => array('course'),
         'send_mail' => array('message'),
         'get_mail_stats' => array('user', 'starttime', 'endtime'),
         'calc_formula' => array('formula', 'variables', 'values'),
