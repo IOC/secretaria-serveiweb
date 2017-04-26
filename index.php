@@ -66,6 +66,7 @@ $functions = array(
             'course' => 'str',
             'user' => 'str',
             'role'  => 'str',
+            'recovergrades'  => 'bool',
         )),
     ),
    'unenrol_users' => array(
