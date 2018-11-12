@@ -66,7 +66,7 @@ class Moodle {
         $response = self::curl($url, self::format_params($params));
         $response = json_decode($response, true);
         if (isset($response['exception'])) {
-            throw new MoodleException($response['message']);
+            throw new MoodleException($response['message'] . " " . $response['debuginfo']);
         }
         return $response;
     }
